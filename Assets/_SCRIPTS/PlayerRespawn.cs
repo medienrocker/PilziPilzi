@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip healingSound;
     [SerializeField] private AudioClip looseHeartSound;
-    [SerializeField] private TextMeshProUGUI deathText;
+    [SerializeField] private TextMeshProUGUI looseLifeText;
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private float playerInWaterDuration = 1f;
@@ -19,6 +20,7 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private float respawnAnimationDuration = 2f;
     [SerializeField] private int startingLives = 3;
     [SerializeField] private MonoBehaviour[] componentsToDisableOnWin;
+    [SerializeField] Stopwatch stopwatch;
 
     private Transform respawnPoint;
     private AudioSource audioSource;
@@ -32,6 +34,14 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private float winningAnimationDuration = 3f;
     [SerializeField] private TextMeshProUGUI winText;
 
+    [Header("Game Over")]
+    [SerializeField] private AudioClip gameOverSound;
+    [SerializeField] private GameObject gameOverParticles;
+    [SerializeField] private float gameOverAnimationDuration = 3f;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private MonoBehaviour[] componentsToDisableOnGameOver;
+
     private bool isLevelComplete = false;
 
     private void Start()
@@ -42,9 +52,9 @@ public class PlayerRespawn : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        if (deathText != null)
+        if (looseLifeText != null)
         {
-            deathText.gameObject.SetActive(false);
+            looseLifeText.gameObject.SetActive(false);
         }
 
         if (deathParticles != null)
@@ -71,6 +81,9 @@ public class PlayerRespawn : MonoBehaviour
         {
             GainLife();
             Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("Stopwatch")) {
+            stopwatch.StartStopwatch();
         }
     }
 
@@ -108,9 +121,9 @@ public class PlayerRespawn : MonoBehaviour
         }
 
         // Show death text
-        if (deathText != null)
+        if (looseLifeText != null)
         {
-            deathText.gameObject.SetActive(true);
+            looseLifeText.gameObject.SetActive(true);
         }
 
         // Respawn at the spawn point
@@ -121,9 +134,9 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(playerInWaterDuration);
 
         // Hide death text
-        if (deathText != null)
+        if (looseLifeText != null)
         {
-            deathText.gameObject.SetActive(false);
+            looseLifeText.gameObject.SetActive(false);
         }
 
         // 3. Play death animation and particles
@@ -201,8 +214,69 @@ public class PlayerRespawn : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("Game Over");
-        // Implement game over logic here (e.g., show game over screen, restart level, etc.)
+        DisableComponentsOnGameOver();
+        StartCoroutine(GameOverSequence());
+    }
+
+    private void DisableComponentsOnGameOver()
+    {
+        foreach (MonoBehaviour component in componentsToDisableOnGameOver)
+        {
+            if (component != null)
+            {
+                component.enabled = false;
+            }
+        }
+    }
+
+    private IEnumerator GameOverSequence()
+    {
+        // Play game over sound
+        if (gameOverSound != null)
+        {
+            audioSource.PlayOneShot(gameOverSound);
+        }
+
+        // Show game over text
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+        }
+
+        // Play game over animation
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetTrigger("GameOver");
+        }
+
+        // Play game over particles
+        if (gameOverParticles != null)
+        {
+            gameOverParticles.SetActive(true);
+        }
+
+        // Stop the STopwach
+        stopwatch.StopStopwatch();
+
+        // Wait for the game over animation duration
+        yield return new WaitForSeconds(gameOverAnimationDuration);
+
+        // Show game over panel
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            stopwatch.DisplayFinalTimes();
+        }
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your actual main menu scene name
     }
 
     // Disable components when winning (e.g. movement...)
@@ -225,6 +299,7 @@ public class PlayerRespawn : MonoBehaviour
             isLevelComplete = true;
             DisableComponents();
             StartCoroutine(WinningSequence());
+            stopwatch.StopStopwatch();
         }
     }
 
@@ -240,6 +315,7 @@ public class PlayerRespawn : MonoBehaviour
         if (winText != null)
         {
             winText.gameObject.SetActive(true);
+            stopwatch.DisplayFinalTimes();
         }
 
         // Play winning animation

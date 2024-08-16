@@ -45,7 +45,7 @@ public class PowerUpManager : MonoBehaviour
 
         // // Wait for 10 seconds
         yield return new WaitForSeconds(10f);
-
+            Debug.Log("Double Jump deactivated!");
         // // Disable double jump
         // if (playerMovement != null)
         // {

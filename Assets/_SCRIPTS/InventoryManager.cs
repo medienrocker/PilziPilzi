@@ -28,8 +28,6 @@ public class InventoryManager : MonoBehaviour
     {
         inventory[type] += amount;
         UIManager.Instance.UpdateCollectibleDisplay(type, inventory[type]);
-
-        Debug.Log(inventory[type] + ": " + amount);
     }
 
     public int GetCollectibleCount(CollectibleType type)

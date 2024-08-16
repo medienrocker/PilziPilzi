@@ -464,6 +464,7 @@
 "Assets/_SCRIPTS/PlayerCollector.cs"
 "Assets/_SCRIPTS/PlayerRespawn.cs"
 "Assets/_SCRIPTS/PowerUpManager.cs"
+"Assets/_SCRIPTS/Stopwatch.cs"
 "Assets/_SCRIPTS/UIManager.cs"
 -langversion:9.0
 

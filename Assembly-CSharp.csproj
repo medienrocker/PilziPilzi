@@ -60,6 +60,7 @@
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Helper\VectorMath.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Input\Camera\CameraJoystickInput.cs" />
      <Compile Include="Assets\_SCRIPTS\InventoryManager.cs" />
+     <Compile Include="Assets\_SCRIPTS\Stopwatch.cs" />
      <Compile Include="Assets\_SCRIPTS\CheckpointSystem.cs" />
      <Compile Include="Assets\_SCRIPTS\LevelEnd.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\BlendShapeAnimator.cs" />

@@ -8,32 +8,25 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI coinText; // Change to TextMeshProUGUI
     public TextMeshProUGUI starText; // Change to TextMeshProUGUI
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
+    private void Awake() {
+        if (Instance == null) {
             Instance = this;
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
 
-        if (coinText != null)
-        {
+        if (coinText != null) {
             coinText.text = "0";
         }
 
-        if (starText != null)
-        {
+        if (starText != null) {
             starText.text = "0";
         }
     }
 
-    public void UpdateCollectibleDisplay(CollectibleType type, int amount)
-    {
-        switch (type)
-        {
+    public void UpdateCollectibleDisplay(CollectibleType type, int amount) {
+        switch (type) {
             case CollectibleType.Coin:
                 coinText.SetText("{0}", amount); // Use SetText for better performance
                 break;
