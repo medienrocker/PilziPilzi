@@ -381,6 +381,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CFXREditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CFXRRuntime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CodeStage.Package2Folder.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/FullscreenEditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/KinoBloom.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/ToonyColorsPro.Demo.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.EditorCoroutines.Editor.ref.dll"

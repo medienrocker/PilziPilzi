@@ -40,8 +40,11 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_SCRIPTS\LevelManager.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Camera\CameraController.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\OscillatePosition.cs" />
+     <Compile Include="Assets\_SCRIPTS\WinScreen.cs" />
+     <Compile Include="Assets\_SCRIPTS\TransitionFader.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Common\ChatModels.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\ChatGPTConversation.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Core scripts\Sensor.cs" />
@@ -60,7 +63,6 @@
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Helper\VectorMath.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Input\Camera\CameraJoystickInput.cs" />
      <Compile Include="Assets\_SCRIPTS\InventoryManager.cs" />
-     <Compile Include="Assets\_SCRIPTS\Stopwatch.cs" />
      <Compile Include="Assets\_SCRIPTS\CheckpointSystem.cs" />
      <Compile Include="Assets\_SCRIPTS\LevelEnd.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\BlendShapeAnimator.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Tutorial\Persistant Converstation\PersistantConversation.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Camera\CameraDistanceRaycaster.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\OscillateScale.cs" />
+     <Compile Include="Assets\_SCRIPTS\TempPauseMenu.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Game Concepts\True or False\TrueOrFalse.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Chat\ChatApiResponse.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\RotationScript.cs" />
@@ -83,19 +86,23 @@
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Environment\TriggerArea.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Input\Character\CharacterInput.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Animation &amp; Audio\TurnTowardTransformDirection.cs" />
+     <Compile Include="Assets\_SCRIPTS\StopwatchManager.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Controllers\SimpleWalkerController.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Camera\ThirdPersonCameraController.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Environment\GravityTunnel.cs" />
+     <Compile Include="Assets\_SCRIPTS\TransitionManager.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Input\Camera\CameraMouseInput.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Common\ApiUsage.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Environment\MovingPlatform.cs" />
      <Compile Include="Assets\_SCRIPTS\PlayerRespawn.cs" />
      <Compile Include="Assets\_SCRIPTS\Collectable.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Environment\FlipAtRightAngle.cs" />
+     <Compile Include="Assets\_SCRIPTS\LevelSelectMap.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Smoothing\SmoothRotation.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Tutorial\Ice breaker\ConversationStarter.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\3rd Party\UnityWav\WavUtility.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\ApiAuthenticationSettings.cs" />
+     <Compile Include="Assets\_SCRIPTS\UIManagerEditor.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\OscillateRotation.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Showcase\DisableShadows.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Game Concepts\MindReader\MindReader.cs" />
@@ -922,6 +929,10 @@
     <ProjectReference Include="AssetInventory.Examples.Editor.csproj">
       <Project>{6c2a9fcf-5387-56f8-a837-9fef026e0422}</Project>
       <Name>AssetInventory.Examples.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FullscreenEditor.csproj">
+      <Project>{218ec3f5-fcef-1d2d-6158-ab9f813f5641}</Project>
+      <Name>FullscreenEditor</Name>
     </ProjectReference>
     <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
       <Project>{f4f05459-2128-af48-13aa-2f392e6a67fe}</Project>

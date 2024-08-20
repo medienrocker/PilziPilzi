@@ -13,14 +13,13 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private float playerInWaterDuration = 1f;
-    [SerializeField] private float deathAnimationDuration = 2f;
+    [SerializeField] private float deathAnimationDuration = 1f;
     [SerializeField] private float brockenHeartSoundDelayDuration = 0.7f;
     [SerializeField] private GameObject deathParticles;
     [SerializeField] private GameObject healingParticles;
-    [SerializeField] private float respawnAnimationDuration = 2f;
+    [SerializeField] private float respawnAnimationDuration = 1f;
     [SerializeField] private int startingLives = 3;
     [SerializeField] private MonoBehaviour[] componentsToDisableOnWin;
-    [SerializeField] Stopwatch stopwatch;
 
     private Transform respawnPoint;
     private AudioSource audioSource;
@@ -31,59 +30,53 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private AudioClip winningSound;
     [SerializeField] private AudioClip winningMusic;
     [SerializeField] private GameObject winningParticles;
-    [SerializeField] private float winningAnimationDuration = 3f;
+    [SerializeField] private float winningAnimationDuration = 2f;
     [SerializeField] private TextMeshProUGUI winText;
 
     [Header("Game Over")]
     [SerializeField] private AudioClip gameOverSound;
     [SerializeField] private GameObject gameOverParticles;
-    [SerializeField] private float gameOverAnimationDuration = 3f;
+    [SerializeField] private float gameOverAnimationDuration = 2f;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private MonoBehaviour[] componentsToDisableOnGameOver;
 
     private bool isLevelComplete = false;
 
-    private void Start()
-    {
+    private void Start() {
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
+        if (audioSource == null) {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        if (looseLifeText != null)
-        {
+        if (looseLifeText != null) {
             looseLifeText.gameObject.SetActive(false);
         }
 
-        if (deathParticles != null)
-        {
+        if (deathParticles != null) {
             deathParticles.SetActive(false);
         }
 
-        if (healingParticles != null)
-        {
+        if (healingParticles != null) {
             healingParticles.SetActive(false);
         }
 
         lives = startingLives;
         UpdateLivesDisplay();
+
+        Debug.Log("current Level: " + PlayerPrefs.GetInt("CurrentLevel", 0));
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("DeathCollider") && !isRespawning)
-        {
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("DeathCollider") && !isRespawning) {
             StartCoroutine(DeathSequence());
         }
-        else if (other.CompareTag("LifePickup"))
-        {
+        else if (other.CompareTag("LifePickup")) {
             GainLife();
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Stopwatch")) {
-            stopwatch.StartStopwatch();
+            StopwatchManager.Instance.StartStopwatch();
         }
     }
 
@@ -92,13 +85,11 @@ public class PlayerRespawn : MonoBehaviour
         respawnPoint = newRespawnPoint;
     }
 
-    private IEnumerator DeathSequence()
-    {
+    private IEnumerator DeathSequence() {
         isRespawning = true;
 
         // Ensure respawn point is set
-        if (respawnPoint == null)
-        {
+        if (respawnPoint == null) {
             Debug.LogWarning("No respawn point set. Using levelStartRespawnPoint position.");
             respawnPoint = levelStartRespawnPoint;
         }
@@ -108,21 +99,18 @@ public class PlayerRespawn : MonoBehaviour
         UpdateLivesDisplay();
 
         // Check if game over
-        if (lives <= 0)
-        {
+        if (lives <= 0) {
             GameOver();
             yield break;
         }
 
         // 1. Play death sound
-        if (deathSound != null)
-        {
+        if (deathSound != null) {
             audioSource.PlayOneShot(deathSound);
         }
 
         // Show death text
-        if (looseLifeText != null)
-        {
+        if (looseLifeText != null) {
             looseLifeText.gameObject.SetActive(true);
         }
 
@@ -134,19 +122,16 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(playerInWaterDuration);
 
         // Hide death text
-        if (looseLifeText != null)
-        {
+        if (looseLifeText != null) {
             looseLifeText.gameObject.SetActive(false);
         }
 
         // 3. Play death animation and particles
-        if (playerAnimator != null)
-        {
+        if (playerAnimator != null) {
             playerAnimator.SetTrigger("Death");
         }
 
-        if (deathParticles != null)
-        {
+        if (deathParticles != null) {
             deathParticles.SetActive(true);
         }
 
@@ -154,8 +139,7 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(brockenHeartSoundDelayDuration);
 
         // Play looseHeartSound sound
-        if (looseHeartSound != null)
-        {
+        if (looseHeartSound != null) {
             audioSource.PlayOneShot(looseHeartSound);
         }
 
@@ -163,25 +147,21 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(deathAnimationDuration);
 
         // Stop death particles
-        if (deathParticles != null)
-        {
+        if (deathParticles != null) {
             deathParticles.SetActive(false);
         }
 
         // Play respawn animation and healing particles
-        if (playerAnimator != null)
-        {
+        if (playerAnimator != null) {
             playerAnimator.SetTrigger("Respawn");
         }
 
-        if (healingParticles != null)
-        {
+        if (healingParticles != null) {
             healingParticles.SetActive(true);
         }
 
         // Play healing sound
-        if (healingSound != null)
-        {
+        if (healingSound != null) {
             audioSource.PlayOneShot(healingSound);
         }
 
@@ -189,144 +169,122 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(respawnAnimationDuration);
 
         // Stop healing particles
-        if (healingParticles != null)
-        {
+        if (healingParticles != null) {
             healingParticles.SetActive(false);
         }
 
         isRespawning = false;
     }
 
-    private void UpdateLivesDisplay()
-    {
-        if (livesText != null)
-        {
+    private void UpdateLivesDisplay() {
+        if (livesText != null) {
             livesText.text = lives.ToString();
         }
     }
 
-    private void GainLife()
-    {
+    private void GainLife() {
         lives++;
         UpdateLivesDisplay();
         // You could add a sound effect or particle effect here for gaining a life
     }
 
-    private void GameOver()
-    {
+    private void GameOver() {
         DisableComponentsOnGameOver();
         StartCoroutine(GameOverSequence());
     }
 
-    private void DisableComponentsOnGameOver()
-    {
-        foreach (MonoBehaviour component in componentsToDisableOnGameOver)
-        {
-            if (component != null)
-            {
+    private void DisableComponentsOnGameOver() {
+        foreach (MonoBehaviour component in componentsToDisableOnGameOver) {
+            if (component != null) {
                 component.enabled = false;
             }
         }
     }
 
-    private IEnumerator GameOverSequence()
-    {
+    private IEnumerator GameOverSequence() {
         // Play game over sound
-        if (gameOverSound != null)
-        {
+        if (gameOverSound != null) {
             audioSource.PlayOneShot(gameOverSound);
         }
 
         // Show game over text
-        if (gameOverText != null)
-        {
+        if (gameOverText != null) {
             gameOverText.gameObject.SetActive(true);
         }
 
         // Play game over animation
-        if (playerAnimator != null)
-        {
+        if (playerAnimator != null) {
             playerAnimator.SetTrigger("GameOver");
         }
 
         // Play game over particles
-        if (gameOverParticles != null)
-        {
+        if (gameOverParticles != null) {
             gameOverParticles.SetActive(true);
         }
 
         // Stop the STopwach
-        stopwatch.StopStopwatch();
+        StopwatchManager.Instance.StopStopwatch();
 
         // Wait for the game over animation duration
         yield return new WaitForSeconds(gameOverAnimationDuration);
 
         // Show game over panel
-        if (gameOverPanel != null)
-        {
+        if (gameOverPanel != null) {
             gameOverPanel.SetActive(true);
-            stopwatch.DisplayFinalTimes();
+            // DELETE -> stopwatch.DisplayFinalTimes();
         }
     }
 
-    public void RestartLevel()
-    {
+    public void RestartLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        // Reset Stopwatch at Levelstart
+        StopwatchManager.Instance.ResetStopwatch();
     }
 
-    public void ReturnToMainMenu()
-    {
+    public void ReturnToMainMenu() {
         SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your actual main menu scene name
     }
 
     // Disable components when winning (e.g. movement...)
-    private void DisableComponents()
-    {
-        foreach (MonoBehaviour component in componentsToDisableOnWin)
-        {
-            if (component != null)
-            {
+    private void DisableComponents() {
+        foreach (MonoBehaviour component in componentsToDisableOnWin) {
+            if (component != null) {
                 component.enabled = false;
             }
         }
     }
 
     // WINNING Conditions
-    public void LevelComplete()
-    {
-        if (!isLevelComplete)
-        {
+    public void LevelComplete() {
+        if (!isLevelComplete) {
             isLevelComplete = true;
             DisableComponents();
             StartCoroutine(WinningSequence());
-            stopwatch.StopStopwatch();
+            StopwatchManager.Instance.StopStopwatch();
         }
     }
 
     private IEnumerator WinningSequence()
     {
         // Play winning sound
-        if (winningSound != null)
-        {
+        if (winningSound != null) {
             audioSource.PlayOneShot(winningSound);
         }
 
         // Show winning text
-        if (winText != null)
-        {
+        if (winText != null) {
             winText.gameObject.SetActive(true);
-            stopwatch.DisplayFinalTimes();
+            //DELETE -> stopwatch.DisplayFinalTimes();
         }
 
         // Play winning animation
-        if (playerAnimator != null)
-        {
+        if (playerAnimator != null) {
             playerAnimator.SetTrigger("Win");
         }
 
         // Play winning particles
-        if (winningParticles != null)
-        {
+        if (winningParticles != null) {
             winningParticles.SetActive(true);
         }
 
@@ -334,8 +292,7 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForSeconds(winningAnimationDuration);
 
         // Play winning music
-        if (winningMusic != null)
-        {
+        if (winningMusic != null) {
             audioSource.Stop(); // Stop any currently playing music
             audioSource.clip = winningMusic;
             audioSource.loop = true;

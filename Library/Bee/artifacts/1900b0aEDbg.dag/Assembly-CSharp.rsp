@@ -362,6 +362,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CFXREditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CFXRRuntime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/CodeStage.Package2Folder.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/FullscreenEditor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/KinoBloom.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/ToonyColorsPro.Demo.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.EditorCoroutines.Editor.ref.dll"
@@ -461,11 +462,18 @@
 "Assets/_SCRIPTS/Collectable.cs"
 "Assets/_SCRIPTS/InventoryManager.cs"
 "Assets/_SCRIPTS/LevelEnd.cs"
+"Assets/_SCRIPTS/LevelManager.cs"
+"Assets/_SCRIPTS/LevelSelectMap.cs"
 "Assets/_SCRIPTS/PlayerCollector.cs"
 "Assets/_SCRIPTS/PlayerRespawn.cs"
 "Assets/_SCRIPTS/PowerUpManager.cs"
-"Assets/_SCRIPTS/Stopwatch.cs"
+"Assets/_SCRIPTS/StopwatchManager.cs"
+"Assets/_SCRIPTS/TempPauseMenu.cs"
+"Assets/_SCRIPTS/TransitionFader.cs"
+"Assets/_SCRIPTS/TransitionManager.cs"
 "Assets/_SCRIPTS/UIManager.cs"
+"Assets/_SCRIPTS/UIManagerEditor.cs"
+"Assets/_SCRIPTS/WinScreen.cs"
 -langversion:9.0
 
 /deterministic

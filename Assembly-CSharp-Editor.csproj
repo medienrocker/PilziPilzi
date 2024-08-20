@@ -917,6 +917,10 @@
       <Project>{6c2a9fcf-5387-56f8-a837-9fef026e0422}</Project>
       <Name>AssetInventory.Examples.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="FullscreenEditor.csproj">
+      <Project>{218ec3f5-fcef-1d2d-6158-ab9f813f5641}</Project>
+      <Name>FullscreenEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
       <Project>{f4f05459-2128-af48-13aa-2f392e6a67fe}</Project>
       <Name>ToonyColorsPro.Demo.Editor</Name>
