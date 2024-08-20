@@ -23,6 +23,7 @@ namespace CMF
 
 		//Movement speed;
 		public float movementSpeed = 7f;
+		public float currentSpeed;
 
 		//How fast the controller can change direction while in the air;
 		//Higher values result in more air control;

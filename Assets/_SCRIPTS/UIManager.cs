@@ -84,8 +84,13 @@ public class UIManager : MonoBehaviour
         if (currentTimeText != null)
             currentTimeText.text = "Meine Zeit: " + StopwatchManager.Instance.FormatTimeWithMilliseconds(currentTime);
 
-        if (bestTimeText != null)
-            bestTimeText.text = "Letzte Bestzeit: " + StopwatchManager.Instance.FormatTimeWithMilliseconds(bestTime);
+        if (bestTimeText != null) {
+            if (StopwatchManager.Instance.FormatTimeWithMilliseconds(bestTime) != null) {
+                bestTimeText.text = "Letzte Bestzeit: " + StopwatchManager.Instance.FormatTimeWithMilliseconds(bestTime);
+            } else {
+                bestTimeText.text = "Letzte Bestzeit: " + StopwatchManager.Instance.FormatTimeWithMilliseconds(currentTime);
+            }
+        }
 
         if (currentTime < bestTime) {
             ShowCurrentTimePokal();
