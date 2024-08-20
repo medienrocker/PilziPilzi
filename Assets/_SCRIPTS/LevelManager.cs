@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
 
     [SerializeField] private int totalLevels;
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private string roadmapSceneName = "LevelSelect";
     [SerializeField] private string transitionSceneName = "TransitionScene";
 
@@ -34,47 +36,53 @@ public class LevelManager : MonoBehaviour
         LoadSceneWithTransition(SceneManager.GetActiveScene().name);
     }
 
-    public void NextLevel()
-    {
+    public void NextLevel() {
         currentLevel++;
-        if (currentLevel > totalLevels)
-        {
+        if (currentLevel > totalLevels) {
             currentLevel = 1;
         }
         PlayerPrefs.SetInt("CurrentLevel", currentLevel);
         LoadLevel(currentLevel);
     }
 
-    public void GoToRoadmap()
-    {
+    public void GoToRoadmap() {
         LoadSceneWithTransition(roadmapSceneName);
     }
 
-    public void LoadLevel(int levelNumber)
-    {
-        if (levelNumber > 0 && levelNumber <= totalLevels)
-        {
+    public void GoToMainMenu() {
+        LoadSceneWithTransition(mainMenuSceneName);
+    }
+
+    public void LoadLevel(int levelNumber) {
+        if (levelNumber > 0 && levelNumber <= totalLevels) {
             LoadSceneWithTransition("Level" + levelNumber);
         }
-        else
-        {
+        else {
             Debug.LogError("Invalid level number: " + levelNumber);
         }
     }
 
-    private void LoadSceneWithTransition(string sceneName)
-    {
+    private void LoadSceneWithTransition(string sceneName) {
+        Debug.Log(sceneName);
         PlayerPrefs.SetString("TargetSceneName", sceneName);
         SceneManager.LoadScene(transitionSceneName, LoadSceneMode.Additive);
     }
+
+    public void QuitGame() {
+        #if UNITY_EDITOR
+            // Exit Playmode in the Unity Editor
+            EditorApplication.isPlaying = false;
+        #else
+            // Quit the application
+            Application.Quit();
+        #endif
+    }
 }
 
-public class LevelSelectButton : MonoBehaviour
-{
+public class LevelSelectButton : MonoBehaviour {
     [SerializeField] private int levelNumber;
 
-    public void OnClick()
-    {
+    public void OnClick() {
         LevelManager.Instance.LoadLevel(levelNumber);
     }
 }

@@ -49,6 +49,7 @@
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\ChatGPTConversation.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Core scripts\Sensor.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Showcase\DemoMenu.cs" />
+     <Compile Include="Assets\_SCRIPTS\PauseMenu.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Common\ApiChoice.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Core scripts\Mover.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Chat\ChatApiRequest.cs" />
@@ -62,6 +63,7 @@
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Animation &amp; Audio\AnimationControl.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Helper\VectorMath.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Input\Camera\CameraJoystickInput.cs" />
+     <Compile Include="Assets\_SCRIPTS\StartEndGame.cs" />
      <Compile Include="Assets\_SCRIPTS\InventoryManager.cs" />
      <Compile Include="Assets\_SCRIPTS\CheckpointSystem.cs" />
      <Compile Include="Assets\_SCRIPTS\LevelEnd.cs" />
@@ -73,7 +75,6 @@
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Tutorial\Persistant Converstation\PersistantConversation.cs" />
      <Compile Include="Assets\Character Movement Fundamentals\Source\Scripts\Camera\CameraDistanceRaycaster.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\OscillateScale.cs" />
-     <Compile Include="Assets\_SCRIPTS\TempPauseMenu.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Extras\Game Concepts\True or False\TrueOrFalse.cs" />
      <Compile Include="Assets\BitSplash\ChatGptIntegration\Core\Chat\ChatApiResponse.cs" />
      <Compile Include="Assets\ithappy\Platformer_2_Obstacles\Scripts\RotationScript.cs" />
